@@ -1,14 +1,16 @@
+import { observer } from "mobx-react";
 import React from "react";
+import { addBox } from "../actions/addBox";
 
-function Toolbar() {
+const Toolbar = observer(() => {
   return (
     <div className="toolbar">
-      <button>Add Box</button>
+      <button onClick={() => addBox()}>Add Box</button>
       <button>Remove Box</button>
       <input type="color" />
       <span>No boxes selected</span>
     </div>
   );
-}
+});
 
 export default Toolbar;

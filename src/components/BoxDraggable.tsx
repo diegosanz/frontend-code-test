@@ -1,7 +1,10 @@
-import React from "react";
 import { observer } from "mobx-react";
+import React, { FC } from "react";
+import { BoxModelType } from "../stores/models/Box";
 
-function BoxDraggable(props) {
+type BoxDraggableProps = BoxModelType;
+
+const BoxDraggable: FC<BoxDraggableProps> = (props) => {
   return (
     <div
       id={props.id}
@@ -10,12 +13,12 @@ function BoxDraggable(props) {
         backgroundColor: props.color,
         width: props.width,
         height: props.height,
-        transform: `translate(${props.left}px, ${props.top}px)`
+        transform: `translate(${props.left}px, ${props.top}px)`,
       }}
     >
       {props.children}
     </div>
   );
-}
+};
 
 export default observer(BoxDraggable);
