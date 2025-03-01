@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { observer } from "mobx-react";
 import React, { FC } from "react";
 import { BoxModelType } from "../stores/models/Box";
@@ -19,10 +20,7 @@ const BoxDraggable: FC<BoxDraggableProps> = ({
   return (
     <div
       id={id}
-      // TODO: add a classNames merger
-      className={[styles.boxDraggable, isSelected ? styles.selected : ""].join(
-        " "
-      )}
+      className={clsx([styles.boxDraggable, isSelected ? styles.selected : ""])}
       style={{
         backgroundColor: color,
         width: width,
