@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { observer } from "mobx-react";
 import React, { FC, useRef } from "react";
-import { useDraggable } from "../hooks/useInteractable";
+import { useDraggable } from "../hooks/useDraggable";
 import { BoxModelType } from "../stores/models/BoxModel";
 import styles from "./BoxDraggable.module.scss";
 
