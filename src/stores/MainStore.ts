@@ -7,18 +7,23 @@ const MainStore = types
   .model("MainStore", {
     boxes: types.array(BoxModel),
   })
+  .views((self) => ({
+    get selectedBoxes(): BoxModelType[] {
+      return self.boxes.filter((box) => box.isSelected);
+    },
+  }))
   .actions((self) => {
     return {
       addBox(box: BoxModelType) {
         self.boxes.push(box);
       },
+      removeSelectedBoxes() {
+        self.selectedBoxes.forEach((box) => {
+          self.boxes.remove(box);
+        });
+      },
     };
-  })
-  .views((self) => ({
-    get selectedBoxes(): BoxModelType[] {
-      return self.boxes.filter((box) => box.isSelected);
-    },
-  }));
+  });
 
 const store = MainStore.create();
 
