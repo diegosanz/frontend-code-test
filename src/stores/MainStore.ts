@@ -14,7 +14,11 @@ const MainStore = types
       },
     };
   })
-  .views((self) => ({}));
+  .views((self) => ({
+    get selectedBoxes(): BoxModelType[] {
+      return self.boxes.filter((box) => box.isSelected);
+    },
+  }));
 
 const store = MainStore.create();
 

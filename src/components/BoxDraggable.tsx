@@ -1,22 +1,35 @@
+import clsx from "clsx";
 import { observer } from "mobx-react";
 import React, { FC } from "react";
 import { BoxModelType } from "../stores/models/Box";
+import styles from "./BoxDraggable.module.scss";
 
-type BoxDraggableProps = BoxModelType;
+export type BoxDraggableProps = BoxModelType;
 
-const BoxDraggable: FC<BoxDraggableProps> = (props) => {
+const BoxDraggable: FC<BoxDraggableProps> = ({
+  id,
+  color,
+  left,
+  top,
+  width,
+  height,
+  isSelected,
+  toggleSelected,
+  children,
+}) => {
   return (
     <div
-      id={props.id}
-      className="box"
+      id={id}
+      className={clsx([styles.boxDraggable, isSelected ? styles.selected : ""])}
       style={{
-        backgroundColor: props.color,
-        width: props.width,
-        height: props.height,
-        transform: `translate(${props.left}px, ${props.top}px)`,
+        backgroundColor: color,
+        width: width,
+        height: height,
+        transform: `translate(${left}px, ${top}px)`,
       }}
+      onClick={() => toggleSelected()}
     >
-      {props.children}
+      {children}
     </div>
   );
 };

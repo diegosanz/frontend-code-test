@@ -1,7 +1,6 @@
-import React, { FC, MouseEventHandler } from "react";
+import React, { FC } from "react";
 
 import { observer } from "mobx-react";
-import { addBox } from "../actions/addBox";
 import store from "../stores/MainStore";
 import Box from "./Box";
 
@@ -10,13 +9,8 @@ type CanvasProps = {
 };
 
 const Canvas: FC<CanvasProps> = ({ store }) => {
-  const onDoubleClick: MouseEventHandler<HTMLDivElement> = (ev) => {
-    const rect = ev.currentTarget.getBoundingClientRect();
-    addBox({ left: ev.clientX - rect.left, top: ev.clientY - rect.top });
-  };
-
   return (
-    <div className="canva" onDoubleClick={onDoubleClick}>
+    <div className="canva">
       {store.boxes.map((box, index) => (
         <Box
           id={box.id}
@@ -26,6 +20,8 @@ const Canvas: FC<CanvasProps> = ({ store }) => {
           top={box.top}
           width={box.width}
           height={box.height}
+          isSelected={box.isSelected}
+          toggleSelected={box.toggleSelected}
         />
       ))}
     </div>

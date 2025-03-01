@@ -25,13 +25,6 @@ html,
   background-color: aliceblue;
 }
 
-.box {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .toolbar {
   position: fixed;
   top: 0;
