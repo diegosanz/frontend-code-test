@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import React from "react";
-import { addBox } from "../actions/addBox";
+import { addBox } from "../stores/actions/addBox";
 
 const Toolbar = observer(() => {
   return (
