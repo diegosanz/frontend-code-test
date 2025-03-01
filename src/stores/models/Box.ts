@@ -9,8 +9,14 @@ const BoxModel = types
     left: 200,
     top: 100,
   })
-  .views((self) => ({}))
-  .actions((self) => ({}));
+  .volatile((self) => ({
+    isSelected: false,
+  }))
+  .actions((self) => ({
+    toggleSelected() {
+      self.isSelected = !self.isSelected;
+    },
+  }));
 
 export type BoxModelType = Instance<typeof BoxModel>;
 

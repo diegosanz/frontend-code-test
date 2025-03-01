@@ -1,7 +1,7 @@
 import React, { FC, MouseEventHandler } from "react";
 
 import { observer } from "mobx-react";
-import { addBox } from "../actions/addBox";
+import { addBox } from "../stores/actions/addBox";
 import store from "../stores/MainStore";
 import Box from "./Box";
 
@@ -26,6 +26,8 @@ const Canvas: FC<CanvasProps> = ({ store }) => {
           top={box.top}
           width={box.width}
           height={box.height}
+          isSelected={box.isSelected}
+          toggleSelected={box.toggleSelected}
         />
       ))}
     </div>
