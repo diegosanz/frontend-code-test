@@ -1,7 +1,7 @@
 import uuid from "uuid/v4";
 import getRandomColor from "../../utils/getRandomColor";
 import store from "../MainStore";
-import BoxModel from "../models/Box";
+import BoxModel from "../models/BoxModel";
 
 type addBoxProps = {
   left: number;

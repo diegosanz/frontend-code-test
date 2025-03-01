@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { observer } from "mobx-react";
 import store from "../stores/MainStore";
 import Box from "./Box";
+import styles from "./Canvas.module.scss";
 
 type CanvasProps = {
   store: typeof store;
@@ -10,7 +11,7 @@ type CanvasProps = {
 
 const Canvas: FC<CanvasProps> = ({ store }) => {
   return (
-    <div className="canva">
+    <div className={styles.canvas}>
       {store.boxes.map((box, index) => (
         <Box
           id={box.id}
@@ -22,6 +23,7 @@ const Canvas: FC<CanvasProps> = ({ store }) => {
           height={box.height}
           isSelected={box.isSelected}
           toggleSelected={box.toggleSelected}
+          setRelativePosition={box.setRelativePosition}
         />
       ))}
     </div>

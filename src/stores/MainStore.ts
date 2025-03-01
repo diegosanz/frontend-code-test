@@ -1,7 +1,7 @@
 import { types } from "mobx-state-tree";
 import uuid from "uuid/v4";
 import getRandomColor from "../utils/getRandomColor";
-import BoxModel, { BoxModelType } from "./models/Box";
+import BoxModel, { BoxModelType } from "./models/BoxModel";
 
 const MainStore = types
   .model("MainStore", {

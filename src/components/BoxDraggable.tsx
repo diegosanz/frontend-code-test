@@ -1,7 +1,8 @@
 import clsx from "clsx";
 import { observer } from "mobx-react";
-import React, { FC } from "react";
-import { BoxModelType } from "../stores/models/Box";
+import React, { FC, useRef } from "react";
+import { useDraggable } from "../hooks/useInteractable";
+import { BoxModelType } from "../stores/models/BoxModel";
 import styles from "./BoxDraggable.module.scss";
 
 export type BoxDraggableProps = BoxModelType;
@@ -15,10 +16,18 @@ const BoxDraggable: FC<BoxDraggableProps> = ({
   height,
   isSelected,
   toggleSelected,
+  setRelativePosition,
   children,
 }) => {
+  const boxDraggableRef = useRef<HTMLDivElement>(null);
+  useDraggable({
+    ref: boxDraggableRef,
+    setRelativePosition,
+  });
+
   return (
     <div
+      ref={boxDraggableRef}
       id={id}
       className={clsx([styles.boxDraggable, isSelected ? styles.selected : ""])}
       style={{
