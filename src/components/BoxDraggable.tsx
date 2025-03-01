@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
 import React, { FC } from "react";
 import { BoxModelType } from "../stores/models/Box";
+import styles from "./BoxDraggable.module.scss";
 
 export type BoxDraggableProps = BoxModelType;
 
@@ -19,7 +20,9 @@ const BoxDraggable: FC<BoxDraggableProps> = ({
     <div
       id={id}
       // TODO: add a classNames merger
-      className={["box", isSelected ? "selected" : ""].join(" ")}
+      className={[styles.boxDraggable, isSelected ? styles.selected : ""].join(
+        " "
+      )}
       style={{
         backgroundColor: color,
         width: width,
