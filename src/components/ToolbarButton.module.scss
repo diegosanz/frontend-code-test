@@ -1,0 +1,27 @@
+.toolbarButton {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem;
+  background-color: #3e63dd;
+  border-radius: 0.25rem;
+  color: white;
+  user-select: none;
+
+  &:hover {
+    background-color: #2a4c9d;
+  }
+
+  &:active {
+    background-color: #1a356d;
+  }
+
+  &:focus-visible {
+    outline: 2px solid white;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

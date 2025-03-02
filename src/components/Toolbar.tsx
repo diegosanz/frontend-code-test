@@ -3,24 +3,31 @@ import React from "react";
 import { addBox } from "../stores/actions/addBox";
 import store from "../stores/MainStore";
 import { SelectedBoxesCounter } from "./SelectedBoxesCounter";
+import styles from "./Toolbar.module.scss";
+import { ToolbarButton } from "./ToolbarButton";
 
 const Toolbar = observer(() => {
   return (
-    <div className="toolbar">
-      <button onClick={() => addBox()}>Add Box</button>
-      <button onClick={() => store.removeSelectedBoxes()}>Remove Box</button>
-      <button
+    <div className={styles.toolbar}>
+      <ToolbarButton onClick={() => addBox()}>Add Box</ToolbarButton>
+      <ToolbarButton
+        onClick={() => store.removeSelectedBoxes()}
+        disabled={store.selectedBoxes.length === 0}
+      >
+        Remove selected
+      </ToolbarButton>
+      <ToolbarButton
         disabled={!store.history.canUndo}
         onClick={() => store.history.undo()}
       >
         Undo
-      </button>
-      <button
+      </ToolbarButton>
+      <ToolbarButton
         disabled={!store.history.canRedo}
         onClick={() => store.history.redo()}
       >
         Redo
-      </button>
+      </ToolbarButton>
       <input
         type="color"
         onChange={(event) =>
