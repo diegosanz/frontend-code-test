@@ -1,4 +1,5 @@
 import { onSnapshot, types } from "mobx-state-tree";
+import { UndoManager } from "mst-middlewares";
 import uuid from "uuid/v4";
 import getRandomColor from "../utils/getRandomColor";
 import BoxModel, { BoxModelType } from "./models/BoxModel";
@@ -6,6 +7,7 @@ import BoxModel, { BoxModelType } from "./models/BoxModel";
 const MainStore = types
   .model("MainStore", {
     boxes: types.array(BoxModel),
+    history: types.optional(UndoManager, {}),
   })
   .views((self) => ({
     get selectedBoxes(): BoxModelType[] {
@@ -58,7 +60,9 @@ const store = savedState
   : createNewStore();
 
 onSnapshot(store, (snapshot) => {
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(snapshot));
+  // We don't want to save the history in the local storage
+  const { history, ...dataToSave } = snapshot;
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataToSave));
 });
 
 export default store;
