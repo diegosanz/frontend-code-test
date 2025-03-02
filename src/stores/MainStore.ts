@@ -15,6 +15,7 @@ const MainStore = types
     },
   }))
   .actions((self) => {
+    setUndoManager(self);
     return {
       addBox(box: BoxModelType) {
         self.boxes.push(box);
@@ -34,8 +35,19 @@ const MainStore = types
           box.setColor(color);
         });
       },
+      setSelectedBoxesPosition(x: number, y: number) {
+        self.selectedBoxes.forEach((box) => {
+          box.setRelativePosition(x, y);
+        });
+      },
     };
   });
+
+// Sorry for the `any` type, but I couldn't find a way to type this properly and the documentation is not very clear
+export let undoManager: any = {};
+export const setUndoManager = (targetStore: any) => {
+  undoManager = targetStore.history;
+};
 
 const createNewStore = () => {
   const store = MainStore.create();
