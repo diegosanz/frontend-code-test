@@ -1,7 +1,7 @@
 import { types } from "mobx-state-tree";
 import uuid from "uuid/v4";
 import getRandomColor from "../utils/getRandomColor";
-import BoxModel, { BoxModelType } from "./models/Box";
+import BoxModel, { BoxModelType } from "./models/BoxModel";
 
 const MainStore = types
   .model("MainStore", {
@@ -20,6 +20,11 @@ const MainStore = types
       removeSelectedBoxes() {
         self.selectedBoxes.forEach((box) => {
           self.boxes.remove(box);
+        });
+      },
+      unSelectAllBoxes() {
+        self.boxes.forEach((box) => {
+          box.unSelect();
         });
       },
     };

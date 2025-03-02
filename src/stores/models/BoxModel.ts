@@ -16,6 +16,13 @@ const BoxModel = types
     toggleSelected() {
       self.isSelected = !self.isSelected;
     },
+    setRelativePosition(x: number, y: number) {
+      self.left = self.left + x;
+      self.top = self.top + y;
+    },
+    unSelect() {
+      self.isSelected = false;
+    },
   }));
 
 export type BoxModelType = Instance<typeof BoxModel>;

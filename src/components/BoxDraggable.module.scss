@@ -1,10 +1,9 @@
 .boxDraggable {
-  position: absolute;
   display: flex;
+  position: absolute;
   justify-content: center;
   align-items: center;
   user-select: none;
-  cursor: pointer;
 
   &.selected {
     outline: 2px dashed #626262;
