@@ -17,7 +17,7 @@ export const useDragBox = ({
     const interactable = interact(ref.current).draggable({
       listeners: {
         move(event) {
-          store.setSelectedBoxesPosition(event.dx, event.dy);
+          store.setSelectedBoxesRelativePosition(event.dx, event.dy);
         },
       },
       autoScroll: true,

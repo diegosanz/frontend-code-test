@@ -1,6 +1,7 @@
 import React, { FC, useRef } from "react";
 
 import { observer } from "mobx-react";
+import { useShortcuts } from "../hooks/useShortcuts";
 import store from "../stores/MainStore";
 import Box from "./Box";
 import styles from "./Canvas.module.scss";
@@ -10,6 +11,7 @@ type CanvasProps = {
 };
 
 const Canvas: FC<CanvasProps> = ({ store }) => {
+  useShortcuts();
   const canvasRef = useRef<HTMLDivElement>(null);
 
   return (

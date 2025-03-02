@@ -35,7 +35,7 @@ const MainStore = types
           box.setColor(color);
         });
       },
-      setSelectedBoxesPosition(x: number, y: number) {
+      setSelectedBoxesRelativePosition(x: number, y: number) {
         self.selectedBoxes.forEach((box) => {
           box.setRelativePosition(x, y);
         });
