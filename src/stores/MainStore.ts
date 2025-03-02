@@ -1,4 +1,4 @@
-import { types } from "mobx-state-tree";
+import { onSnapshot, types } from "mobx-state-tree";
 import uuid from "uuid/v4";
 import getRandomColor from "../utils/getRandomColor";
 import BoxModel, { BoxModelType } from "./models/BoxModel";
@@ -35,15 +35,30 @@ const MainStore = types
     };
   });
 
-const store = MainStore.create();
+const createNewStore = () => {
+  const store = MainStore.create();
 
-const box1 = BoxModel.create({
-  id: uuid(),
-  color: getRandomColor(),
-  left: 0,
-  top: 0,
+  store.addBox(
+    BoxModel.create({
+      id: uuid(),
+      color: getRandomColor(),
+      left: 0,
+      top: 0,
+    })
+  );
+
+  return store;
+};
+
+const LOCAL_STORAGE_KEY = "genially-main-store";
+
+const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+const store = savedState
+  ? MainStore.create(JSON.parse(savedState))
+  : createNewStore();
+
+onSnapshot(store, (snapshot) => {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(snapshot));
 });
-
-store.addBox(box1);
 
 export default store;
