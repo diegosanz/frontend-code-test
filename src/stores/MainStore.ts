@@ -1,4 +1,4 @@
-import { onSnapshot, types } from "mobx-state-tree";
+import { Instance, onSnapshot, types } from "mobx-state-tree";
 import { UndoManager } from "mst-middlewares";
 import uuid from "uuid/v4";
 import getRandomColor from "../utils/getRandomColor";
@@ -21,9 +21,7 @@ const MainStore = types
         self.boxes.push(box);
       },
       removeSelectedBoxes() {
-        self.selectedBoxes.forEach((box) => {
-          self.boxes.remove(box);
-        });
+        self.boxes.replace(self.boxes.filter((box) => !box.isSelected));
       },
       unSelectAllBoxes() {
         self.boxes.forEach((box) => {
@@ -67,9 +65,19 @@ const createNewStore = () => {
 const LOCAL_STORAGE_KEY = "genially-main-store";
 
 const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
-const store = savedState
-  ? MainStore.create(JSON.parse(savedState))
-  : createNewStore();
+let store: Instance<typeof MainStore>;
+
+try {
+  store = savedState
+    ? MainStore.create(JSON.parse(savedState))
+    : createNewStore();
+} catch (error) {
+  console.error("Error loading state from localStorage:", {
+    error,
+    savedState,
+  });
+  store = createNewStore();
+}
 
 onSnapshot(store, (snapshot) => {
   // We don't want to save the history in the local storage
