@@ -10,8 +10,11 @@ const Toolbar = observer(() => {
   return (
     <div className={styles.toolbar}>
       <ToolbarButton onClick={() => addBox()}>Add Box</ToolbarButton>
-      <ToolbarButton onClick={() => store.removeSelectedBoxes()}>
-        Remove Box
+      <ToolbarButton
+        onClick={() => store.removeSelectedBoxes()}
+        disabled={store.selectedBoxes.length === 0}
+      >
+        Remove selected
       </ToolbarButton>
       <ToolbarButton
         disabled={!store.history.canUndo}
