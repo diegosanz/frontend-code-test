@@ -6,8 +6,22 @@ export const useShortcuts = () => {
   useKeyCombination(["Escape"], () => store.unSelectAllBoxes());
   useKeyCombination(["Delete"], () => store.removeSelectedBoxes());
 
-  useKeyCombination(["Control", "z"], () => store.history.undo());
-  useKeyCombination(["Control", "y"], () => store.history.redo());
+  useKeyCombination(
+    ["Control", "z"],
+    () => store.history.canUndo && store.history.undo()
+  );
+  useKeyCombination(
+    ["Control", "y"],
+    () => store.history.canRedo && store.history.redo()
+  );
+  useKeyCombination(
+    ["Meta", "z"],
+    () => store.history.canUndo && store.history.undo()
+  );
+  useKeyCombination(
+    ["Meta", "y"],
+    () => store.history.canRedo && store.history.redo()
+  );
 
   useKeyCombination(["Shift", "n"], () => addBox());
 
@@ -23,16 +37,16 @@ export const useShortcuts = () => {
   useKeyCombination(["arrowright"], () =>
     store.setSelectedBoxesRelativePosition(1, 0)
   );
-  useKeyCombination(["Control", "arrowdown"], () =>
+  useKeyCombination(["Alt", "arrowdown"], () =>
     store.setSelectedBoxesRelativePosition(0, 10)
   );
-  useKeyCombination(["Control", "arrowup"], () =>
+  useKeyCombination(["Alt", "arrowup"], () =>
     store.setSelectedBoxesRelativePosition(0, -10)
   );
-  useKeyCombination(["Control", "arrowleft"], () =>
+  useKeyCombination(["Alt", "arrowleft"], () =>
     store.setSelectedBoxesRelativePosition(-10, 0)
   );
-  useKeyCombination(["Control", "arrowright"], () =>
+  useKeyCombination(["Alt", "arrowright"], () =>
     store.setSelectedBoxesRelativePosition(10, 0)
   );
   useKeyCombination(["Shift", "arrowdown"], () =>
