@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "4.2.4",
-    "@testing-library/react": "9.3.2",
     "@testing-library/user-event": "7.1.2",
     "clsx": "2.1.1",
     "interactjs": "1.8.4",
@@ -41,6 +40,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "12.1.5",
+    "@testing-library/react-hooks": "7.0.2",
+    "@types/jest": "29.5.14",
     "@types/uuid": "3.4.0"
   }
 }
