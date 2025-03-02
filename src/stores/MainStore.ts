@@ -1,4 +1,5 @@
 import { onSnapshot, types } from "mobx-state-tree";
+import { UndoManager } from "mst-middlewares";
 import uuid from "uuid/v4";
 import getRandomColor from "../utils/getRandomColor";
 import BoxModel, { BoxModelType } from "./models/BoxModel";
@@ -6,6 +7,7 @@ import BoxModel, { BoxModelType } from "./models/BoxModel";
 const MainStore = types
   .model("MainStore", {
     boxes: types.array(BoxModel),
+    history: types.optional(UndoManager, {}),
   })
   .views((self) => ({
     get selectedBoxes(): BoxModelType[] {
@@ -13,6 +15,7 @@ const MainStore = types
     },
   }))
   .actions((self) => {
+    setUndoManager(self);
     return {
       addBox(box: BoxModelType) {
         self.boxes.push(box);
@@ -32,8 +35,19 @@ const MainStore = types
           box.setColor(color);
         });
       },
+      setSelectedBoxesPosition(x: number, y: number) {
+        self.selectedBoxes.forEach((box) => {
+          box.setRelativePosition(x, y);
+        });
+      },
     };
   });
+
+// Sorry for the `any` type, but I couldn't find a way to type this properly and the documentation is not very clear
+export let undoManager: any = {};
+export const setUndoManager = (targetStore: any) => {
+  undoManager = targetStore.history;
+};
 
 const createNewStore = () => {
   const store = MainStore.create();
@@ -58,7 +72,9 @@ const store = savedState
   : createNewStore();
 
 onSnapshot(store, (snapshot) => {
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(snapshot));
+  // We don't want to save the history in the local storage
+  const { history, ...dataToSave } = snapshot;
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataToSave));
 });
 
 export default store;

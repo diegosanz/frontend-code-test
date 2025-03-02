@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { observer } from "mobx-react";
 import React, { FC, useRef } from "react";
 import { useDragBox } from "../hooks/useDragBox";
-import store from "../stores/MainStore";
+import store, { undoManager } from "../stores/MainStore";
 import { BoxModelType } from "../stores/models/BoxModel";
 import styles from "./BoxDraggable.module.scss";
 
@@ -34,6 +34,37 @@ const BoxDraggable: FC<BoxDraggableProps> = ({
     setRelativePosition,
   });
 
+  const onMouseDown = (event: React.MouseEvent) =>
+    undoManager.startGroup(() => {
+      if (!event.ctrlKey && !isSelected) {
+        store.unSelectAllBoxes();
+      }
+
+      if (!isSelected) {
+        toggleSelected();
+        mouseDownMeta.current = {
+          selectedInThisMouseDown: true,
+          position: { x: event.clientX, y: event.clientY },
+        };
+      }
+    });
+
+  const onMouseUp = () => {
+    undoManager.stopGroup();
+  };
+
+  const onClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (
+      !mouseDownMeta.current.selectedInThisMouseDown &&
+      mouseDownMeta.current.position.x === event.clientX &&
+      mouseDownMeta.current.position.y === event.clientY
+    ) {
+      toggleSelected();
+    }
+    mouseDownMeta.current.selectedInThisMouseDown = false;
+  };
+
   return (
     <div
       ref={boxDraggableRef}
@@ -45,30 +76,9 @@ const BoxDraggable: FC<BoxDraggableProps> = ({
         height: height,
         transform: `translate(${left}px, ${top}px)`,
       }}
-      onMouseDown={(event) => {
-        if (!event.ctrlKey && !isSelected) {
-          store.unSelectAllBoxes();
-        }
-
-        if (!isSelected) {
-          toggleSelected();
-          mouseDownMeta.current = {
-            selectedInThisMouseDown: true,
-            position: { x: event.clientX, y: event.clientY },
-          };
-        }
-      }}
-      onClick={(event) => {
-        event.stopPropagation();
-        if (
-          !mouseDownMeta.current.selectedInThisMouseDown &&
-          mouseDownMeta.current.position.x === event.clientX &&
-          mouseDownMeta.current.position.y === event.clientY
-        ) {
-          toggleSelected();
-        }
-        mouseDownMeta.current.selectedInThisMouseDown = false;
-      }}
+      onMouseDown={onMouseDown}
+      onClick={onClick}
+      onMouseUp={onMouseUp}
     >
       {children}
     </div>

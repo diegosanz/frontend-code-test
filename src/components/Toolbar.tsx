@@ -9,6 +9,18 @@ const Toolbar = observer(() => {
     <div className="toolbar">
       <button onClick={() => addBox()}>Add Box</button>
       <button onClick={() => store.removeSelectedBoxes()}>Remove Box</button>
+      <button
+        disabled={!store.history.canUndo}
+        onClick={() => store.history.undo()}
+      >
+        Undo
+      </button>
+      <button
+        disabled={!store.history.canRedo}
+        onClick={() => store.history.redo()}
+      >
+        Redo
+      </button>
       <input
         type="color"
         onChange={(event) =>
