@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 
 import { observer } from "mobx-react";
+import { useClickAway } from "../hooks/useClickAway";
 import store from "../stores/MainStore";
 import Box from "./Box";
 import styles from "./Canvas.module.scss";
@@ -10,12 +11,21 @@ type CanvasProps = {
 };
 
 const Canvas: FC<CanvasProps> = ({ store }) => {
+  const canvasRef = useRef<HTMLDivElement>(null);
+  useClickAway(canvasRef, (event) => {
+    store.unSelectAllBoxes();
+  });
+
   return (
-    <div className={styles.canvas}>
-      {store.boxes.map((box, index) => (
+    <div
+      className={styles.canvas}
+      ref={canvasRef}
+      onClick={() => store.unSelectAllBoxes()}
+    >
+      {store.boxes.map((box) => (
         <Box
+          key={box.id}
           id={box.id}
-          key={index}
           color={box.color}
           left={box.left}
           top={box.top}
@@ -24,6 +34,7 @@ const Canvas: FC<CanvasProps> = ({ store }) => {
           isSelected={box.isSelected}
           toggleSelected={box.toggleSelected}
           setRelativePosition={box.setRelativePosition}
+          unSelect={box.unSelect}
         />
       ))}
     </div>

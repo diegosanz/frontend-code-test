@@ -22,6 +22,11 @@ const MainStore = types
           self.boxes.remove(box);
         });
       },
+      unSelectAllBoxes() {
+        self.boxes.forEach((box) => {
+          box.unSelect();
+        });
+      },
     };
   });
 
