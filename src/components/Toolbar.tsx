@@ -9,7 +9,12 @@ const Toolbar = observer(() => {
     <div className="toolbar">
       <button onClick={() => addBox()}>Add Box</button>
       <button onClick={() => store.removeSelectedBoxes()}>Remove Box</button>
-      <input type="color" />
+      <input
+        type="color"
+        onChange={(event) =>
+          store.changeColorToSelectedBoxes(event.target.value)
+        }
+      />
       <SelectedBoxesCounter />
     </div>
   );

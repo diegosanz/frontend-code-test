@@ -23,6 +23,9 @@ const BoxModel = types
     unSelect() {
       self.isSelected = false;
     },
+    setColor(color: string) {
+      self.color = color;
+    },
   }));
 
 export type BoxModelType = Instance<typeof BoxModel>;

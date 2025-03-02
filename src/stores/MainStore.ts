@@ -27,6 +27,11 @@ const MainStore = types
           box.unSelect();
         });
       },
+      changeColorToSelectedBoxes(color: string) {
+        self.selectedBoxes.forEach((box) => {
+          box.setColor(color);
+        });
+      },
     };
   });
 
