@@ -1,6 +1,6 @@
 # Decisiones tomadas
 
-- Se ha usado la versión node v16.20.2 ya que el proyecto requería una versión antigua y he optado por no complicarme actualizando dependencias.
+- Se ha usado la versión node v16.20.2 y npm 8.19.4 ya que el proyecto requería una versión antigua de node y he optado por no complicarme actualizando dependencias. Esto aplica también para el warning de sass que sale al arrancar el proyecto.
 - Lo he convertido a Typescript ya que era rápido y sencillo y eso me hace ser más ágil en el desarrollo.
 - He trabajado con Redux, pero no con MobX, que lo conocía sólo de oídas. Me ha gustado mucho cómo funciona, pero es posible que haya cometido algún error de principiante ya que la documentación la he leído en diagonal.
 - He trabajado con ramas de git pero no las he borrado para dejar constancia de ellas al ser una prueba técnica..
