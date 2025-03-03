@@ -15,3 +15,4 @@
 - Funciona todo lo solicitado en la prueba.
 - ¡Un montón de combinaciones de teclas\!
 - Tiene un minitutorial de combinaciones de teclas por si no estás leyendo esto.
+- Está online en https://diegosanz.github.io/frontend-code-test/
