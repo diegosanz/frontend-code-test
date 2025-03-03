@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/diegosanz/frontend-code-test/static/css/main.f34ab184.css",
+    "main.js": "/diegosanz/frontend-code-test/static/js/main.90be1290.js",
+    "index.html": "/diegosanz/frontend-code-test/index.html",
+    "main.f34ab184.css.map": "/diegosanz/frontend-code-test/static/css/main.f34ab184.css.map",
+    "main.90be1290.js.map": "/diegosanz/frontend-code-test/static/js/main.90be1290.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f34ab184.css",
+    "static/js/main.90be1290.js"
+  ]
+}
